@@ -4,7 +4,8 @@ require_relative 'twitter_listener'
 module BirdWatcher
   class App < Sinatra::Base
     
-    @terms = ["#daveandeileen"]
+    #@terms = ["#daveandeileen"]
+    @terms = ["#test"]
 
     @listener = TwitterListener.new
     @listener.listen(@terms)

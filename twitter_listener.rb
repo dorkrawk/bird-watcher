@@ -32,7 +32,15 @@ module BirdWatcher
     end
 
     def get_image(status)
-      puts "#{status.text}"
+      if !status.media.empty?
+        tweet_photo = status.media.first  # only worry about one photo per tweet
+        photo_url = tweet_photo.media_url
+        tweet_text = status.text
+        tweet_user = status.user
+        puts "url: #{photo_url}"
+        puts "by: #{tweet_user.screen_name} (#{tweet_user.name})"
+        puts "tweet: #{tweet_text}"
+      end
     end
   end
 
