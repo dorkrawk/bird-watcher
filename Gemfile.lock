@@ -22,9 +22,11 @@ GEM
     http_parser.rb (0.5.3)
     multi_json (1.8.1)
     multipart-post (1.2.0)
+    pg (0.14.1)
     rack (1.5.2)
     rack-protection (1.5.0)
       rack
+    sequel (3.40.0)
     shotgun (0.9)
       rack (>= 1.0)
     simple_oauth (0.2.0)
@@ -48,6 +50,8 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  pg
+  sequel
   shotgun
   sinatra
   tweetstream

@@ -1,4 +1,5 @@
 require 'tweetstream'
+require 'sequel'
 
 # needed for TweetStream.track because we're not useing Rails here
 class Array
@@ -20,6 +21,16 @@ module BirdWatcher
         config.auth_method        = :oauth
       end
 
+      db_type = ENV["B_W_DB_TYPE"]
+      db_location = ENV["B_W_DB_LOCATION"]
+      db_user = ENV["B_W_DB_USER"]
+      db_pass = ENV["B_W_DB_PASS"]
+
+      @db = Sequel.connect("#{db_type}://#{db_user}:#{db_pass}@#{db_location}")
+
+      the_url = @db.select(:photo_url).from(:photos).filter(:id => '1').get(:photo_url)
+      puts the_url
+
       @client = TweetStream::Client.new
 
     end
@@ -40,7 +51,15 @@ module BirdWatcher
         puts "url: #{photo_url}"
         puts "by: #{tweet_user.screen_name} (#{tweet_user.name})"
         puts "tweet: #{tweet_text}"
+
+        #store_image(photo_url, tweet_user, tweet_text)
       end
+    end
+
+    def store_image(photo_url, tweet_user, tweet_text)
+      screen_name = tweet_user.screen_name
+      name = tweet_user.name
+      @db.photos.insert(:photo_url => photo_url, :service => "twitter", :username => screen_name, :name => name, :photo_text => tweet_text)
     end
   end
 
