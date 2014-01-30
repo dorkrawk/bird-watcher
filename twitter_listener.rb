@@ -28,11 +28,7 @@ module BirdWatcher
 
       @db = Sequel.connect("#{db_type}://#{db_user}:#{db_pass}@#{db_location}")
 
-      the_url = @db.select(:photo_url).from(:photos).filter(:id => '1').get(:photo_url)
-      puts the_url
-
       @client = TweetStream::Client.new
-
     end
 
     def listen(terms)
@@ -52,14 +48,15 @@ module BirdWatcher
         puts "by: #{tweet_user.screen_name} (#{tweet_user.name})"
         puts "tweet: #{tweet_text}"
 
-        #store_image(photo_url, tweet_user, tweet_text)
+        store_image(photo_url, tweet_user, tweet_text)
       end
     end
 
     def store_image(photo_url, tweet_user, tweet_text)
       screen_name = tweet_user.screen_name
       name = tweet_user.name
-      @db.photos.insert(:photo_url => photo_url, :service => "twitter", :username => screen_name, :name => name, :photo_text => tweet_text)
+
+      @db[:photos].insert(:photo_url => photo_url, :service => "twitter", :username => screen_name, :name => name, :photo_text => tweet_text)
     end
   end
 
