@@ -7,4 +7,5 @@ gem 'pg'
 
 group :development do
   gem 'shotgun' 
+  gem 'rvm-capistrano'
 end
