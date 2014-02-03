@@ -2,9 +2,9 @@ require "rvm/capistrano"
 require "bundler/capistrano"
 
 set :application, "bird_watcher"
-set :repository,  "https://github.com/dorkrawk/bird_watcher.git"
+set :repository,  "https://github.com/dorkrawk/bird-watcher.git"
 
-# set :scm, :git # You can set :scm explicitly or Capistrano will make an intelligent guess based on known version control directory names
+set :scm, :git # You can set :scm explicitly or Capistrano will make an intelligent guess based on known version control directory names
 # Or: `accurev`, `bzr`, `cvs`, `darcs`, `git`, `mercurial`, `perforce`, `subversion` or `none`
 
 role :web, "zoidberg"                          # Your HTTP server, Apache/etc
