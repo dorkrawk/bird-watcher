@@ -34,6 +34,7 @@ module BirdWatcher
     def listen(terms)
       puts "Now listening listening for: #{terms.join}"
       $logger.info "Starting Twitter Listener"
+      @db[:photos].insert(:photo_url => "***", :service => "test", :username => "***", :name => "dave", :photo_text => "")
       @client.track(terms) do |status|
         get_image(status)
       end
