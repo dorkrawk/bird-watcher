@@ -33,6 +33,7 @@ module BirdWatcher
 
     def listen(terms)
       puts "Now listening listening for: #{terms.join}"
+      $logger.info "Starting Twitter Listener"
       @client.track(terms) do |status|
         get_image(status)
       end
@@ -44,6 +45,8 @@ module BirdWatcher
         photo_url = tweet_photo.media_url
         tweet_text = status.text
         tweet_user = status.user
+        $logger.info "found image"
+        $logger.info "  #{photo_url} by #{tweet_user.screen_name} msg: #{tweet_text}"
         puts "url: #{photo_url}"
         puts "by: #{tweet_user.screen_name} (#{tweet_user.name})"
         puts "tweet: #{tweet_text}"
